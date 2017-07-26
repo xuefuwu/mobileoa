@@ -1,40 +1,43 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { HttpServiceProvider } from '../providers/http-service';
+import {HttpInterceptHandle} from "../providers/HttpInterceptHandle";
+import {NativeService} from "../providers/NativeService";
+import { StorageService } from '../providers/StorageService';
+import {GlobalData} from "../providers/GlobalData";
+import {TestModule} from "../pages/test/test.module";
+import { LoginModule } from '../pages/login/login.module';
+import { HomeModule } from '../pages/home/home.module';
 @NgModule({
   declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    MyApp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpModule,
+    IonicModule.forRoot(MyApp),
+    HomeModule,
+    LoginModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    MyApp
   ],
   providers: [
+    HttpInterceptHandle,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NativeService,
+    StorageService,
+    HttpServiceProvider,
+    GlobalData
   ]
 })
 export class AppModule {}

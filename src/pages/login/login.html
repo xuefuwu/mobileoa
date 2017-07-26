@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>登录</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <form [formGroup]="loginForm">
+        <ion-item>
+            <ion-label>用户名</ion-label>
+            <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>密码</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <button ion-button full (click)="login(loginForm.value, $event)" [disabled]="!loginForm.valid">Login</button>
+    </form>
+</ion-content>
