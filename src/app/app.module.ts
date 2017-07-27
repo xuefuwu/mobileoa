@@ -14,6 +14,7 @@ import {GlobalData} from "../providers/GlobalData";
 import {TestModule} from "../pages/test/test.module";
 import { LoginModule } from '../pages/login/login.module';
 import { HomeModule } from '../pages/home/home.module';
+import { KHDJModule } from '../pages/khdj/khdj.module';
 @NgModule({
   declarations: [
     MyApp
@@ -23,7 +24,8 @@ import { HomeModule } from '../pages/home/home.module';
     HttpModule,
     IonicModule.forRoot(MyApp),
     HomeModule,
-    LoginModule
+    LoginModule,
+    KHDJModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

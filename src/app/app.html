@@ -1,16 +1,16 @@
 <ion-menu side="left" [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Home1</ion-title>
+      <ion-title>系统菜单</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content padding>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-      <button ion-item (click)="logout()">
+      <button ion-button block (click)="logout()">
         退出系统
       </button>
     </ion-list>
