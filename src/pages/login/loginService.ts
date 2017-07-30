@@ -8,7 +8,7 @@ import { StorageService } from "../../providers/StorageService";
 @Injectable()
 export class LoginService{
     local: Storage;
-    API_URL = "http://192.168.1.143:8100/api/user/ajax.jsp";
+    API_URL = "/api/user/ajax.jsp";
     constructor(
         public http: Http, 
         public httpService: HttpServiceProvider, 

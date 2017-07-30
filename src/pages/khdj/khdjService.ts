@@ -6,27 +6,28 @@ import { HttpServiceProvider } from "../../providers/http-service";
 
 @Injectable()
 export class KHDJService {
+    url_jcsjgl: string="/weboa/api/jcsjgl/ajax.jsp";
+    url_khtj: string= "/weboa/api/khtj/ajax.jsp";
     constructor(public http: Http, public httpService: HttpServiceProvider) {
-
     }
 
-    doget(params: any) {
-        return this.httpService.get("/api/jcsjgl/ajax.jsp", params).map((res: Response) => res.json());
+    doget(url: string,params: any) {
+        return this.httpService.get(url, params).map((res: Response) => res.json());
     }
     getKHSJ() {
         var params = { f: "getData" };
-        return this.doget(params);
+        return this.doget(this.url_jcsjgl,params);
     }
     getcsbyssqx(ssqx: string) {
         var params = { f: "getcsbyssqx", ssqx: ssqx };
-        return this.doget(params);
+        return this.doget(this.url_khtj,params);
     }
     getAllcsCount(ssqx: string) {
         var params = { f: "allcs", ssqx: ssqx };
-        return this.doget(params);
+        return this.doget(this.url_khtj,params);
     }
     getAmountAllNotCompleted(khnd:string, ssdq: string){
         var params = {f:"getAmountAllNotCompleted",khnd:khnd,ssdq:ssdq};
-        return this.doget(params);
+        return this.doget(this.url_khtj,params);
     }
 }

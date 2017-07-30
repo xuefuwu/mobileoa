@@ -106,12 +106,13 @@ export class Index_pc {
 								}
 								var zpf = 100-(wwctj/cszs*100);
 								zf.series[0].data.push(zpf.toFixed(2));
+								this.chart.setOption(zf);
 							})
 						}
 					}
 				)
 			});
-			this.chart.setOption(zf);
+			
 		});
 	}
 }
