@@ -89,10 +89,28 @@ export class Index_pc {
 				}
 			}]
 		});
-		
+
 		// $('#p').html("hwphvaovj");        jquery 使用
-		this.khdjService.getcsbyssqx().subscribe(data=>{
-			var zf = {xAxis: {type : 'category',data: data},series:[{data:[]}]};
+		this.khdjService.getcsbyssqx("鹿城区").subscribe(data => {
+			var zf = { xAxis: { type: 'category', data: data }, series: [{ data: [] }] };
+			data.forEach(ssqx => {
+				this.khdjService.getAllcsCount(ssqx).subscribe(
+					res => {
+						var cszs = 0;
+						if(res.count!="null"){
+							cszs = parseInt(res.count);
+							this.khdjService.getAmountAllNotCompleted("af4f5e142c9e42d6b6588b920e75a8ba",ssqx).subscribe(resData=>{
+								var wwctj = 0;
+								if(resData.amount!=null){
+									wwctj = parseInt(resData.amount);
+								}
+								var zpf = 100-(wwctj/cszs*100);
+								zf.series[0].data.push(zpf.toFixed(2));
+							})
+						}
+					}
+				)
+			});
 			this.chart.setOption(zf);
 		});
 	}
