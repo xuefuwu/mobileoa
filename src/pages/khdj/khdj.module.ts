@@ -4,6 +4,7 @@ import { MenuKhdj } from "./MenuKHDJ";
 import { Index_pc } from "./indexpc";
 import { Index_dc } from "./indexdc";
 import { Index_cc } from "./indexcc";
+import { KHDJService } from "./khdjService";
 
 //import {SelectPicturePageModule} from "../../shared/select-picture/select-picture.module";
 @NgModule({
@@ -24,7 +25,7 @@ import { Index_cc } from "./indexcc";
     Index_dc
   ],
   providers: [
-
+    KHDJService
   ]
 })
 export class KHDJModule {
