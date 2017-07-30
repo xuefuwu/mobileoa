@@ -9,13 +9,10 @@ import * as echarts from 'echarts';
 export class Index_pc {
   @ViewChild('container1') container: ElementRef;//与html中div #container1对应
   chart :any;
-  let initDQ: any = ["瓯江口","经开区","苍南县","泰顺县","平阳县","文成县","永嘉县","乐清市","瑞安市","洞头区","瓯海区","龙湾区","鹿城区"];
+  initDQ: any;
   constructor(public navCtrl: NavController) {
-    //let basic_lines = echarts.init(document.getElementById(this.chartId));
-  }
-
-  ionViewDidLoad() {
-
+	this.initDQ = ["瓯江口","经开区","苍南县","泰顺县","平阳县","文成县","永嘉县","乐清市","瑞安市","洞头区","瓯海区","龙湾区","鹿城区"];
+	
     let ctx = this.container.nativeElement;
     this.chart = echarts.init(ctx);
     this.chart.setOption({
@@ -87,6 +84,10 @@ export class Index_pc {
 				}
 			}]
 		});
+  }
+
+  ionViewDidLoad() {
+
 
     // $('#p').html("hwphvaovj");        jquery 使用
 
