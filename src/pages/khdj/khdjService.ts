@@ -6,8 +6,8 @@ import { HttpServiceProvider } from "../../providers/http-service";
 
 @Injectable()
 export class KHDJService {
-    url_jcsjgl: string="/weboa/api/jcsjgl/ajax.jsp";
-    url_khtj: string= "/weboa/api/khtj/ajax.jsp";
+    url_jcsjgl: string="/api/jcsjgl/ajax.jsp";
+    url_khtj: string= "/api/khtj/ajax.jsp";
     constructor(public http: Http, public httpService: HttpServiceProvider) {
     }
 
