@@ -9,81 +9,84 @@ import * as echarts from 'echarts';
 export class Index_pc {
   @ViewChild('container1') container: ElementRef;//与html中div #container1对应
   chart :any;
+  let initDQ: any = ["瓯江口","经开区","苍南县","泰顺县","平阳县","文成县","永嘉县","乐清市","瑞安市","洞头区","瓯海区","龙湾区","鹿城区"];
   constructor(public navCtrl: NavController) {
     //let basic_lines = echarts.init(document.getElementById(this.chartId));
   }
+
   ionViewDidLoad() {
 
     let ctx = this.container.nativeElement;
     this.chart = echarts.init(ctx);
-    this.chart.setOption(
-      {
-        backgroundColor: '#fff',
-
-        title: {
-          text: 'Customized Pie',
-          left: 'center',
-          top: 20,
-          textStyle: {
-            color: '#ccc'
-          }
-        },
-
-        tooltip: {
-          trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-
-        visualMap: {
-          show: false,
-          min: 80,
-          max: 600,
-          inRange: {
-            colorLightness: [0, 1]
-          }
-        },
-        series: [
-          {
-            name: '访问来源',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '50%'],
-            data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 274, name: '联盟广告' },
-              { value: 235, name: '视频广告' },
-              { value: 400, name: '搜索引擎' }
-            ].sort(function (a, b) { return a.value - b.value }),
-            roseType: 'angle',
-            label: {
-              normal: {
-                textStyle: {
-                  color: 'rgba(255, 255, 255, 0.3)'
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                lineStyle: {
-                  color: 'rgba(255, 255, 255, 0.3)'
-                },
-                smooth: 0.2,
-                length: 10,
-                length2: 20
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#c23531',
-                shadowBlur: 200,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
-          }
-        ]
-      }
-    );
+    this.chart.setOption({
+			title: {
+				x:"center",
+				text: '消防检查考核评分'
+			},
+			tooltip : {
+				trigger: 'axis'
+			},
+			legend: {
+				x : "left",
+				data:['结果评分']
+			},
+			//calculable : true,
+			yAxis: {
+				type:"value",
+				boundaryGap : [0, 0.01],
+				min:0,
+				max:100
+			},
+			xAxis: {
+				type : 'category',
+				data: this.initDQ
+			},
+			series: [{
+				name: '结果评分',
+				type: 'bar',
+				data: [],
+				itemStyle: {
+					//柱形图圆角，鼠标移上去效果，如果只是一个数字则说明四个参数全部设置为那么多
+					emphasis: {
+						barBorderRadius: 30
+					},
+					normal: {
+						//柱形图圆角，初始化效果
+						barBorderRadius:[10, 10, 0, 0],
+						label: {
+							show: true,//是否展示
+							position:'top',
+							textStyle: {
+								fontWeight:'bolder',
+								fontSize : '12',
+								fontFamily : '微软雅黑'
+							}
+						},
+						color:function(params){
+							if(params.value>90){
+								return "#2b821d";
+							}else if(params.value>75&&params.value<=90){
+								return "#005eaa";
+							}else if(params.value>60&&params.value<=75){
+								return "#e5cf0d";
+							}else if(params.value<=60){
+								return "#c12e34";
+							}
+						}
+					}
+				},
+				markLine : {
+					data : [
+						{type : 'average', name: '平均值'}
+					],
+					itemStyle: {
+						normal: {
+							color:"#5ab1ef"
+						}
+					}
+				}
+			}]
+		});
 
     // $('#p').html("hwphvaovj");        jquery 使用
 

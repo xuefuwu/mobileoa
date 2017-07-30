@@ -15,6 +15,8 @@ import {TestModule} from "../pages/test/test.module";
 import { LoginModule } from '../pages/login/login.module';
 import { HomeModule } from '../pages/home/home.module';
 import { KHDJModule } from '../pages/khdj/khdj.module';
+import { AQJCModule } from "../pages/aqjc/aqjc.module";
+import { SRZTModule } from "../pages/srzt/srzt.module";
 @NgModule({
   declarations: [
     MyApp
@@ -25,7 +27,8 @@ import { KHDJModule } from '../pages/khdj/khdj.module';
     IonicModule.forRoot(MyApp),
     HomeModule,
     LoginModule,
-    KHDJModule
+    KHDJModule,
+    AQJCModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
