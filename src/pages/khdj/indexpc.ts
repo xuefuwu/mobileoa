@@ -89,8 +89,11 @@ export class Index_pc {
 				}
 			}]
 		});
-
+		
 		// $('#p').html("hwphvaovj");        jquery 使用
-		var jsondata = this.khdjService.getcsbyssqx();
+		this.khdjService.getcsbyssqx().subscribe(data=>{
+			var zf = {xAxis: {type : 'category',data: data},series:[{data:[]}]};
+			this.chart.setOption(zf);
+		});
 	}
 }
