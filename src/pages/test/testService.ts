@@ -10,10 +10,10 @@ import {HttpServiceProvider} from "../../providers/http-service";
 export class TestService {
   constructor(public http: Http, public httpService: HttpServiceProvider) {
   }
-  private domain:string = "http://192.168.1.143:8100";
+  
   getJson() {
     let params = {f:"getData"};
-    return this.httpService.get(this.domain+'/api/csgl/ajax.jsp',params).map((res: Response) => res.json());
+    return this.httpService.get("/api/csgl/ajax.jsp",params).map((res: Response) => res.json());
   }
 
   getObj(): Observable<TestObj> {

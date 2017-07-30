@@ -14,7 +14,7 @@ import {APP_SERVE_URL, REQUEST_TIMEOUT} from "./Constants";
 
 @Injectable()
 export class HttpServiceProvider {
-
+  private domain:string = "http://192.168.1.143:8100";
   constructor(public http: Http,
               private globalData: GlobalData,
               private nativeService: NativeService
@@ -22,7 +22,7 @@ export class HttpServiceProvider {
   }
 
   public request(url: string, options: RequestOptionsArgs): Observable<Response> {
-    url = Utils.formatUrl(url.startsWith('http') ? url : APP_SERVE_URL + url);
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     this.optionsAddToken(options);
     return Observable.create(observer => {
       this.nativeService.showLoading();
@@ -39,6 +39,7 @@ export class HttpServiceProvider {
   }
 
   public get(url: string, paramMap: any = null): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Get,
       search: HttpServiceProvider.buildURLSearchParams(paramMap)
@@ -46,6 +47,7 @@ export class HttpServiceProvider {
   }
 
   public post(url: string, body: any = {}): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Post,
       body: body,
@@ -56,6 +58,7 @@ export class HttpServiceProvider {
   }
 
   public postFormData(url: string, paramMap: any = null): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Post,
       search: HttpServiceProvider.buildURLSearchParams(paramMap).toString(),
@@ -66,6 +69,7 @@ export class HttpServiceProvider {
   }
 
   public put(url: string, body: any = {}): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Put,
       body: body
@@ -73,6 +77,7 @@ export class HttpServiceProvider {
   }
 
   public delete(url: string, paramMap: any = null): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Delete,
       search: HttpServiceProvider.buildURLSearchParams(paramMap).toString()
@@ -80,6 +85,7 @@ export class HttpServiceProvider {
   }
 
   public patch(url: string, body: any = {}): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Patch,
       body: body
@@ -87,6 +93,7 @@ export class HttpServiceProvider {
   }
 
   public head(url: string, paramMap: any = null): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Head,
       search: HttpServiceProvider.buildURLSearchParams(paramMap).toString()
@@ -94,6 +101,7 @@ export class HttpServiceProvider {
   }
 
   public options(url: string, paramMap: any = null): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     return this.request(url, new RequestOptions({
       method: RequestMethod.Options,
       search: HttpServiceProvider.buildURLSearchParams(paramMap).toString()
@@ -127,6 +135,7 @@ export class HttpServiceProvider {
    * @param err
    */
   private requestFailed(url: string, options: RequestOptionsArgs, err: Response): void {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     this.nativeService.hideLoading();
     console.log('%c 请求失败 %c', 'color:red', '', 'url', url, 'options', options, 'err', err);
     if (err instanceof TimeoutError) {
