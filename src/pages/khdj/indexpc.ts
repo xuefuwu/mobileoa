@@ -41,7 +41,7 @@ export class Index_pc {
 			},
 			xAxis: {
 				type: 'category',
-				data: this.initDQ
+				//data: this.initDQ
 			},
 			series: [{
 				name: '结果评分',
