@@ -14,4 +14,8 @@ export class KHDJService {
         let params = {f: "getData"};
         return this.httpService.get("/api/jcsjgl/ajax.jsp",params).map((res: Response)=>res.json());
     }
+    getcsbyssqx(){
+        let params = {f: "getcsbyssqx"};
+        return this.httpService.get("/api/khtj/ajax.jsp",params).map((res: Response)=>res.json());
+    }
 }
