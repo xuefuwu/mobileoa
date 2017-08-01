@@ -8,6 +8,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <div [ngSwitch]="UcHeader">
+    <ion-list *ngSwitchCase="'isLogined'">
+        {{user.OWNERNAME}}
+    </ion-list>
+    <ion-list *ngSwitchCase="'unLogin'">
+        没登陆的
+    </ion-list>
+</div>
   <ion-list>
   <button ion-button (click)="openPage(menukhdj)" full>消防检查</button>
   <button ion-button (click)="openPage(menuaqjc)" full>建筑检查</button>

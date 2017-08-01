@@ -30,4 +30,9 @@ export class KHDJService {
         var params = {f:"getAmountAllNotCompleted",khnd:khnd,ssdq:ssdq};
         return this.doget(this.url_khtj,params);
     }
+
+    getcsList(ssqx: string, khnd: string){
+        let params = {f:"getAllData",ssqx: ssqx,khnd: khnd};
+        return this.doget(this.url_khtj,params);
+    }
 }

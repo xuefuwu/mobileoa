@@ -21,7 +21,7 @@ export class LoginService{
     }
 
     getUserInfo(id:string){
-        var params = { f:"getUser", id:id };
+        var params = { f:"getUser", userId:id };
         return this.httpService.get(this.API_URL,params).map((res: Response)=>res.json());
     }
 }

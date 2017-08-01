@@ -4,6 +4,7 @@ import { MenuKhdj } from "./MenuKHDJ";
 import { Index_pc } from "./indexpc";
 import { Index_dc } from "./indexdc";
 import { Index_cc } from "./indexcc";
+import { CSList } from "./cslist";
 import { KHDJService } from "./khdjService";
 
 //import {SelectPicturePageModule} from "../../shared/select-picture/select-picture.module";
@@ -16,13 +17,15 @@ import { KHDJService } from "./khdjService";
     MenuKhdj,
     Index_pc,
     Index_cc,
-    Index_dc
+    Index_dc,
+    CSList
   ],
   entryComponents: [
     MenuKhdj,
     Index_pc,
     Index_cc,
-    Index_dc
+    Index_dc,
+    CSList
   ],
   providers: [
     KHDJService

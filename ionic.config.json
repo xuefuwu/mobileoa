@@ -5,7 +5,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/api"
+      "proxyUrl": "http://www.fbvinc.com:8137/weboa/api"
     }
   ]
 }

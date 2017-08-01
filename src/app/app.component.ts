@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { MenuController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import {NavController, Nav} from 'ionic-angular';
+import { AppConfig } from "./app.config";
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +15,7 @@ export class MyApp {
   rootPage:any = LoginPage;
   pages: Array<{ title: string, component: any }>;
 
-  constructor(platform: Platform, public menu: MenuController, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform,public appConfig:AppConfig, public menu: MenuController, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
