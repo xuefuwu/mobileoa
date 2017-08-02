@@ -26,10 +26,10 @@ export class HttpServiceProvider {
     url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
     this.optionsAddToken(options);
     return Observable.create(observer => {
-      this.nativeService.showLoading();
+      //this.nativeService.showLoading();
       console.log('%c 请求前 %c', 'color:blue', '', 'url', url, 'options', options);
       this.http.request(url, options).timeout(REQUEST_TIMEOUT).subscribe(res => {
-        this.nativeService.hideLoading();
+        //this.nativeService.hideLoading();
         console.log('%c 请求成功 %c', 'color:green', '', 'url', url, 'options', options, 'res', res);
         observer.next(res);
       }, err => {

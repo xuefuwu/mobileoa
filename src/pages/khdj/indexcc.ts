@@ -1,6 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import * as echarts from 'echarts';
+import  echarts from 'echarts';
+import { CSList } from "./cslist";
+import { KHDJService } from "./khdjService";
+import { StorageService } from '../../providers/StorageService';
+import { Owner } from "../login/user";
 
 @Component({
   selector: 'index-xjcc',
@@ -8,84 +12,125 @@ import * as echarts from 'echarts';
 })
 export class Index_cc {
   @ViewChild('container1') container: ElementRef;//与html中div #container1对应
-  chart :any;
-  constructor(public navCtrl: NavController) {
-    //let basic_lines = echarts.init(document.getElementById(this.chartId));
-  }
-  ionViewDidLoad() {
+	chart: any;
+	initDQ: any;
+	constructor(
+		public navCtrl: NavController,
+		public khdjService: KHDJService,
+		private storageService: StorageService, ) {
+		this.initDQ = ["瓯江口", "经开区", "苍南县", "泰顺县", "平阳县", "文成县", "永嘉县", "乐清市", "瑞安市", "洞头区", "瓯海区", "龙湾区", "鹿城区"];
+	}
 
-    let ctx = this.container.nativeElement;
-    this.chart = echarts.init(ctx);
-    this.chart.setOption(
-      {
-        backgroundColor: '#fff',
+	ionViewDidLoad() {
+		let ctx = this.container.nativeElement;
+		this.chart = echarts.init(ctx);
+		this.chart.on("click", this.eConsole,this);
+		this.chart.setOption({
+			title: {
+				x: "center",
+				text: '消防检查考核评分'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				x: "left",
+				data: ['结果评分']
+			},
+			//calculable : true,
+			xAxis: {
+				type: "value",
+				boundaryGap: [0, 0.01],
+				min: 0,
+				max: 100
+			},
+			yAxis: {
+				type: 'category',
+				axisLabel:{
+					margin:2,
+					textStyle:{
+						align:'right'
+					}
+				}
+				//data: this.initDQ
+			},
+			series: [{
+				name: '结果评分',
+				type: 'bar',
+				data: [],
+				itemStyle: {
+					//柱形图圆角，鼠标移上去效果，如果只是一个数字则说明四个参数全部设置为那么多
+					emphasis: {
+						barBorderRadius: 30
+					},
+					normal: {
+						//柱形图圆角，初始化效果
+						barBorderRadius: [0, 10, 10, 0],
+						label: {
+							show: true,//是否展示
+							position: 'right',
+							textStyle: {
+								fontWeight: 'bolder',
+								fontSize: '12',
+								fontFamily: '微软雅黑',
+								
+							}
+						},
+						color: function (params) {
+							if (params.value > 90) {
+								return "#2b821d";
+							} else if (params.value > 75 && params.value <= 90) {
+								return "#005eaa";
+							} else if (params.value > 60 && params.value <= 75) {
+								return "#e5cf0d";
+							} else if (params.value <= 60) {
+								return "#c12e34";
+							}
+						}
+					}
+				},
+				markLine: {
+					data: [
+						{ type: 'average', name: '平均值' }
+					],
+					itemStyle: {
+						normal: {
+							color: "#5ab1ef"
+						}
+					}
+				}
+			}]
+		});
 
-        title: {
-          text: 'Customized Pie',
-          left: 'center',
-          top: 20,
-          textStyle: {
-            color: '#ccc'
-          }
-        },
+		// $('#p').html("hwphvaovj");        jquery 使用
+		let user = this.storageService.read<Owner>('user');
+		this.khdjService.getcsbyssqx(user.SSQXID).subscribe(data => {
+			var zf = { yAxis: { type: 'category', data: [] }, series: [{ data: [] }] };
+			data.forEach(ssqx => {
+				this.khdjService.getAllcsCount(ssqx).subscribe(
+					res => {
+						var cszs = 0;
+						if (res.count != "null") {
+							cszs = parseInt(res.count);
+							this.khdjService.getAmountAllNotCompleted("af4f5e142c9e42d6b6588b920e75a8ba", ssqx).subscribe(resData => {
+								var wwctj = 0;
+								if (resData.amount != null) {
+									wwctj = parseInt(resData.amount);
+								}
+								var zpf = 100 - (wwctj / cszs * 100);
+								zf.yAxis.data.push(res.ssqx);
+								zf.series[0].data.push({value:zpf.toFixed(2),name: res.ssqx,khnd: "af4f5e142c9e42d6b6588b920e75a8ba"});
+								this.chart.setOption(zf);
+							})
+						}
+					}
+				)
+			});
 
-        tooltip: {
-          trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
+		});
+	}
 
-        visualMap: {
-          show: false,
-          min: 80,
-          max: 600,
-          inRange: {
-            colorLightness: [0, 1]
-          }
-        },
-        series: [
-          {
-            name: '访问来源',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '50%'],
-            data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 274, name: '联盟广告' },
-              { value: 235, name: '视频广告' },
-              { value: 400, name: '搜索引擎' }
-            ].sort(function (a, b) { return a.value - b.value }),
-            roseType: 'angle',
-            label: {
-              normal: {
-                textStyle: {
-                  color: 'rgba(255, 255, 255, 0.3)'
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                lineStyle: {
-                  color: 'rgba(255, 255, 255, 0.3)'
-                },
-                smooth: 0.2,
-                length: 10,
-                length2: 20
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#c23531',
-                shadowBlur: 200,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
-          }
-        ]
-      }
-    );
-
-    // $('#p').html("hwphvaovj");        jquery 使用
-
-  }
+	eConsole(param) {
+		this.navCtrl.push(CSList, { "ssqx": param.data.name, "khnd":param.data.khnd });
+	}
 }

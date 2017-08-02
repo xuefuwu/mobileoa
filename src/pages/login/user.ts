@@ -1,6 +1,9 @@
 export class Owner{
     ID: string;
-    username: string;
-    password: string;
-
+    OWNERNAME: string;
+    SSQXID: string;
+    //private password: string;
+    //private token: string;
+    
+    
 }

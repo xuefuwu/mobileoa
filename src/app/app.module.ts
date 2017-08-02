@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import { AppConfig } from "./app.config";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpServiceProvider } from '../providers/http-service';
@@ -17,9 +17,11 @@ import { HomeModule } from '../pages/home/home.module';
 import { KHDJModule } from '../pages/khdj/khdj.module';
 import { AQJCModule } from "../pages/aqjc/aqjc.module";
 import { SRZTModule } from "../pages/srzt/srzt.module";
+
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    
   ],
   imports: [
     BrowserModule,
@@ -28,11 +30,13 @@ import { SRZTModule } from "../pages/srzt/srzt.module";
     HomeModule,
     LoginModule,
     KHDJModule,
-    AQJCModule
+    AQJCModule,
+  
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    
   ],
   providers: [
     HttpInterceptHandle,
@@ -42,7 +46,8 @@ import { SRZTModule } from "../pages/srzt/srzt.module";
     NativeService,
     StorageService,
     HttpServiceProvider,
-    GlobalData
+    GlobalData,
+AppConfig
   ]
 })
 export class AppModule {}

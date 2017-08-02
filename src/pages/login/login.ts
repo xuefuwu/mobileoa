@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 import { LoginService } from './LoginService';
 import { StorageService } from '../../providers/StorageService';
 import { HomePage } from '../home/home';
+import { AppConfig } from "../../app/app.config";
+
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html',
@@ -17,7 +19,8 @@ export class LoginPage {
         private formBuilder: FormBuilder,
         public toastCtrl: ToastController,
         private storageService: StorageService,
-        private loginService: LoginService
+        private loginService: LoginService,
+        public appConfig:AppConfig
     ) {
 
     }
@@ -29,9 +32,15 @@ export class LoginPage {
     login(user,_event){
         //_event.preventDefalut();
         this.loginService.login(user).subscribe(data=>{
+             this.storageService.clear();
             if(data.userid!='0'){
-                this.storageService.write('UserInfo', data.Result);
+                this.storageService.write('UserInfo', data.userid);
+                this.loginService.getUserInfo(data.userid).subscribe(userinfo=>{
+                    this.storageService.write('user', userinfo[0]);
+                    this.appConfig.setUser(userinfo);
+                })
                 this.navCtrl.setRoot(HomePage);
+                
             }else {
                 let toast = this.toastCtrl.create({
                     message: '用户名或密码错误.',

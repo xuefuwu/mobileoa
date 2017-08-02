@@ -1,10 +1,10 @@
 export class csObject{
 
-        unid: string;
-        csmc: string;
-        csbm: string;
-        ssqx: string;
-        ssjd: string;
-        ssjb: string;
+        UNID: string;
+        CSMC: string;
+        CSBM: string;
+        SSQX: string;
+        SSJD: string;
+        SSJB: string;
 
 }
