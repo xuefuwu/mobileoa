@@ -4,7 +4,8 @@ import { Observable } from "rxjs";
 import { TestService } from "./TestService";
 import { HttpServiceProvider } from "../../providers/http-service";
 import { NativeService } from "../../providers/NativeService";
-import { csObject } from '../../modules/csgl'
+import { csObject } from '../../modules/csgl';
+import _ from 'underscore/underscore';
 /**
  * Generated class for the TestPage page.
  *
@@ -27,11 +28,15 @@ export class TestPage implements OnInit {
   }
   ngOnInit() {
     this.testService.getJson().subscribe((csobjs: csObject[]) => {
-      this.allItems = csobjs;
-      for (let i = 0; i < 30; i++) {
+      
+      this.allItems = _.sortBy(csobjs, function (item) { return item.SSQX; });;
+      var length = this.allItems.length < 15 ? this.allItems.length : 15;
+      for (let i = 0; i < length; i++) {
         this.items.push(this.allItems[i]);
-        this.allItems.splice(i, 1);
+
+        console.log(length + "_" + i + "_" + this.allItems.length);
       }
+      this.allItems.splice(0, length);
     });
   }
   getJsonData() {
@@ -44,10 +49,13 @@ export class TestPage implements OnInit {
     console.log('Begin async operation');
 
     setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
+      var length = this.allItems.length < 15 ? this.allItems.length : 15;
+      for (let i = 0; i < length; i++) {
         this.items.push(this.allItems[i]);
-        this.allItems.splice(i, 1);
+
+        console.log(length + "_" + i + "_" + this.allItems.length);
       }
+      this.allItems.splice(0, length);
 
       console.log('Async operation has ended');
       infiniteScroll.complete();
