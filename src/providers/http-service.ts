@@ -15,7 +15,7 @@ import {APP_SERVE_URL, REQUEST_TIMEOUT} from "./Constants";
 @Injectable()
 export class HttpServiceProvider {
   private domain:string = "http://localhost:8100";
-  //private domain:string = "http://oa.wzmzzj.gov.cn";
+  //private domain:string = "http://oa.wzmzzj.gov.cn/weboa";
   constructor(public http: Http,
               private globalData: GlobalData,
               private nativeService: NativeService

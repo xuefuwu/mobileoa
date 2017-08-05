@@ -22,7 +22,8 @@ export class LoginPage {
         private loginService: LoginService,
         public appConfig:AppConfig
     ) {
-
+        this.storageService.clear();
+        this.storageService.write('user', "");
     }
     loginForm = this.formBuilder.group({
         'username':[],
@@ -32,7 +33,6 @@ export class LoginPage {
     login(user,_event){
         //_event.preventDefalut();
         this.loginService.login(user).subscribe(data=>{
-             this.storageService.clear();
             if(data.userid!='0'){
                 this.storageService.write('UserInfo', data.userid);
                 this.loginService.getUserInfo(data.userid).subscribe(userinfo=>{

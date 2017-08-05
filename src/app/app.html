@@ -6,6 +6,14 @@
   </ion-header>
 
   <ion-content padding>
+    <div [ngSwitch]="UcHeader">
+      <ion-list *ngSwitchCase="'isLogined'">
+        {{user.OWNERNAME}}
+      </ion-list>
+      <ion-list *ngSwitchCase="'unLogin'">
+
+      </ion-list>
+    </div>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
