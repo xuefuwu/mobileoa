@@ -35,4 +35,13 @@ export class KHDJService {
         let params = {f:"getAllData",ssqx: ssqx,khnd: khnd};
         return this.doget(this.url_khtj,params);
     }
+
+    getkhtz(khjd: string){
+        let params = {f:"getkhtz",khjd: khjd};
+        return this.doget(this.url_khtj,params);
+    }
+    getkhdj(csid:string){
+        let params = {f:"getkhdj",csid:csid};
+        return this.doget(this.url_khtj,params);
+    }
 }

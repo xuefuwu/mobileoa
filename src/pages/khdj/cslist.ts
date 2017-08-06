@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
 import { KHDJService } from "./khdjService";
 import { HttpServiceProvider } from "../../providers/http-service";
 import { NativeService } from "../../providers/NativeService";
 import { csObject } from '../../modules/csgl'
+import { KHDJModal } from "./khdj";
 import _ from 'underscore/underscore';
 @Component({
     selector: 'list_cs',
@@ -15,20 +16,21 @@ export class CSList {
     items = [];
     allItems: csObject[];
     ssqx: string;
-    khnd: string;
+    khjd: string;
     groups: any = [];
     constructor(
         public navCtrl: NavController,
         public khdjService: KHDJService,
         //private storageService: StorageService,
-        private navParams: NavParams
+        private navParams: NavParams,
+        public modalCtrl: ModalController
     ) {
         this.ssqx = this.navParams.get("ssqx");
-        this.khnd = this.navParams.get("khnd");
+        this.khjd = this.navParams.get("khjd");
         this.initData();
     }
     initData() {
-        this.khdjService.getcsList(this.ssqx, this.khnd).subscribe((csobjs: csObject[]) => {
+        this.khdjService.getcsList(this.ssqx, this.khjd).subscribe((csobjs: csObject[]) => {
             this.allItems = csobjs;
             _.each(_.groupBy(csobjs, function (item) { return item.SSJD; }), function (item, key) {
                 this.groups.push({
@@ -56,8 +58,8 @@ export class CSList {
                     
                 }, 500);
                 */
-                console.log('Async operation has ended');
-                    infiniteScroll.complete();
+        console.log('Async operation has ended');
+        infiniteScroll.complete();
     }
 
     /*
@@ -80,37 +82,42 @@ export class CSList {
 
         // if the value is an empty string don't filter the items
         if (val && val.trim() != '') {
-            
-            var allitem = _.groupBy(_.filter(this.allItems, function(item){
+
+            var allitem = _.groupBy(_.filter(this.allItems, function (item) {
                 return item.CSMC.toLowerCase().indexOf(val.toLowerCase()) > -1;
-            }) , function (item) { return item.SSJD; })
-            _.each(allitem , function (item, key) {
+            }), function (item) { return item.SSJD; })
+            _.each(allitem, function (item, key) {
                 //if (item.CSMC.toLowerCase().indexOf(val.toLowerCase()) > -1) {
-                    this.groups.push({
-                        name: key,
-                        items: item,
-                        show: false
-                    });
+                this.groups.push({
+                    name: key,
+                    items: item,
+                    show: false
+                });
                 //}
             }, this);
-        }else{
+        } else {
             this.initData();
         }
     }
-    viewcompleted(ev:any){
+    viewcompleted(ev: any) {
         this.groups = [];
         let val = ev.value;
-        var allitem = _.groupBy(_.filter(this.allItems, function(item){
-                return item.STATUS.toLowerCase().indexOf(val.toLowerCase()) > -1;
-            }) , function (item) { return item.SSJD; })
-            _.each(allitem , function (item, key) {
-                //if (item.CSMC.toLowerCase().indexOf(val.toLowerCase()) > -1) {
-                    this.groups.push({
-                        name: key,
-                        items: item,
-                        show: false
-                    });
-                //}
-            }, this);
+        var allitem = _.groupBy(_.filter(this.allItems, function (item) {
+            return item.STATUS.toLowerCase().indexOf(val.toLowerCase()) > -1;
+        }), function (item) { return item.SSJD; })
+        _.each(allitem, function (item, key) {
+            //if (item.CSMC.toLowerCase().indexOf(val.toLowerCase()) > -1) {
+            this.groups.push({
+                name: key,
+                items: item,
+                show: false
+            });
+            //}
+        }, this);
+    }
+
+    presentModal(item) {
+        let modal = this.modalCtrl.create(KHDJModal,{csid:item.UNID,khjd:this.khjd});
+        modal.present();
     }
 }

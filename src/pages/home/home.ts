@@ -1,11 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
 import { NavController, Nav } from 'ionic-angular';
-import { MenuKhdj } from '../khdj/MenuKHDJ';
+
 import { MenuAqjc } from "../aqjc/MenuAQJC";
 import { MenuSrzt } from "../srzt/MenuSRZT";
 import { AppConfig } from "../../app/app.config";
-
+import { JCSJ } from "../khdj/jcsj";
 
 
 @Component({
@@ -20,7 +20,7 @@ export class HomePage {
   @ViewChild('userinfo') container: ElementRef;
   constructor(public navCtrl: NavController, public appConfig: AppConfig) {
     // used for an example of ngFor and navigation
-    this.menukhdj = { title: "消防检查", component: MenuKhdj };
+    this.menukhdj = { title: "消防检查", component: JCSJ };
     this.menuaqjc = { title: "建筑检查", component: MenuAqjc };
     this.menusrzt = { title: "三人驻堂", component: MenuSrzt };
 

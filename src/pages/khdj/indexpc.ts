@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController,Nav } from 'ionic-angular';
+import { NavController,Nav,NavParams } from 'ionic-angular';
 import  echarts from 'echarts';
 import { CSList } from "./cslist";
 import { KHDJService } from "./khdjService";
@@ -14,14 +14,15 @@ export class Index_pc {
 	@ViewChild('container1') container: ElementRef;//与html中div #container1对应
 	chart: echarts;
 	initDQ: any;
-	
+	khjd: string;
 	constructor(
 		public navCtrl: NavController,
 		public khdjService: KHDJService,
 		private storageService: StorageService,
-
+		public navParams: NavParams
 	) {
 		this.initDQ = ["瓯江口", "经开区", "苍南县", "泰顺县", "平阳县", "文成县", "永嘉县", "乐清市", "瑞安市", "洞头区", "瓯海区", "龙湾区", "鹿城区"];
+		this.khjd = this.navParams.get("khjd");
 	}
 
 	ionViewDidLoad() {
@@ -115,14 +116,14 @@ export class Index_pc {
 						var cszs = 0;
 						if (res.count != "null") {
 							cszs = parseInt(res.count);
-							this.khdjService.getAmountAllNotCompleted("af4f5e142c9e42d6b6588b920e75a8ba", ssqx).subscribe(resData => {
+							this.khdjService.getAmountAllNotCompleted(this.khjd, ssqx).subscribe(resData => {
 								var wwctj = 0;
 								if (resData.amount != null) {
 									wwctj = parseInt(resData.amount);
 								}
 								var zpf = 100 - (wwctj / cszs * 100);
 								zf.yAxis.data.push(res.ssqx);
-								zf.series[0].data.push({value:zpf.toFixed(2),name: res.ssqx,khnd: "af4f5e142c9e42d6b6588b920e75a8ba"});
+								zf.series[0].data.push({value:zpf.toFixed(2),name: res.ssqx,khjd: this.khjd});
 								this.chart.setOption(zf);
 							})
 						}
@@ -134,6 +135,6 @@ export class Index_pc {
 	}
 
 	eConsole(param) {
-		this.navCtrl.push(CSList, { "ssqx": param.data.name, "khnd":param.data.khnd });
+		this.navCtrl.push(CSList, { "ssqx": param.data.name, "khjd":param.data.khjd });
 	}
 }

@@ -5,7 +5,9 @@ import { Index_pc } from "./indexpc";
 import { Index_dc } from "./indexdc";
 import { Index_cc } from "./indexcc";
 import { CSList } from "./cslist";
+import { KHDJModal } from "./khdj";
 import { KHDJService } from "./khdjService";
+import { JCSJ } from "./jcsj";
 
 //import {SelectPicturePageModule} from "../../shared/select-picture/select-picture.module";
 @NgModule({
@@ -18,14 +20,18 @@ import { KHDJService } from "./khdjService";
     Index_pc,
     Index_cc,
     Index_dc,
-    CSList
+    CSList,
+    KHDJModal,
+    JCSJ
   ],
   entryComponents: [
     MenuKhdj,
     Index_pc,
     Index_cc,
     Index_dc,
-    CSList
+    CSList,
+    KHDJModal,
+    JCSJ
   ],
   providers: [
     KHDJService
