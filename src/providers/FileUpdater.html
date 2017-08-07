@@ -7,24 +7,25 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-item>
+    <form action="http://www.fbvinc.com:8137/weboa/resources/jsp/upload.jsp" method="post" enctype="multipart/form-data" [formGroup]="uploadForm">
+
+        <ion-item>
+            <ion-label>密码</ion-label>
+            <ion-input formControlName="action" value="upload" type="hidden"></ion-input>
+        </ion-item>
+
         <ion-row>
-            <ion-col col-6>
-                <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
-          <ion-icon name="camera"></ion-icon>
-        </button>
-            </ion-col>
-            <ion-col col-6>
-                <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
-          <ion-icon name="image"></ion-icon>
-        </button>
-            </ion-col>
+            
+            <input type="file" name="files" #uploadimg (change)="fileChanged($event)"/>
         </ion-row>
-    </ion-item>
-    <ion-item *ngIf="error">
-        <strong>{{error}}</strong>
-    </ion-item>
-    <ion-item>
-        <img *ngIf="myPhoto" class="img-responsive" [src]="myPhoto" />
-    </ion-item>
+        <ion-item>
+            <ion-label>密码</ion-label>
+            <ion-input formControlName="filepath" value="/attachment" type="hidden"></ion-input>
+        </ion-item>
+        <ion-item>
+            <button ion-button full color="primary" (click)="submit(uploadForm.value, $event)">upload</button>
+        </ion-item>
+    </form>
+
+
 </ion-content>

@@ -16,7 +16,7 @@ export class KHDJModal {
     items: any = [];
     jcjg: any = [];
     khdj:KHDJ = new KHDJ();
-    public domain: string = "http://oa.wzmzzj.gov.cn/weboa";
+    private domain:string = "http://oa.wzmzzj.gov.cn/weboa";
     constructor(
         public platform: Platform,
         public params: NavParams,
@@ -36,7 +36,8 @@ export class KHDJModal {
             var jcnr = _.sortBy(_.filter(res,function(item){return item.nrx!=null}), function (item) { return parseInt(item.nrpx); });
             _.each(jcnr, function (item, key) {
                 this.items.push({
-                    key: "NRX" + item.nrpx,
+                    id: item.nrpx,
+                    key: "KHX" + item.nrpx,
                     text: item.nrx,
                     value: item.khx,
                     imgs:item.imgs
@@ -53,7 +54,7 @@ export class KHDJModal {
 
         this.viewController.dismiss();
     }
-    upload() {
-        this.navCtrl.push(FileUpdater);
+    upload(fileid: string) {
+        this.navCtrl.push(FileUpdater,{"fileid":"khximg"+fileid});
     }
 }

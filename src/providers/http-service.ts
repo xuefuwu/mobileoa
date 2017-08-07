@@ -11,10 +11,11 @@ import {Utils} from "./Utils";
 import {GlobalData} from "./GlobalData";
 import {NativeService} from "./NativeService";
 import {APP_SERVE_URL, REQUEST_TIMEOUT} from "./Constants";
+import { GUID } from "./GUID";
 
 @Injectable()
 export class HttpServiceProvider {
-  private domain:string = "http://localhost:8100";
+  private domain:string = "http://192.168.0.102:8100";
   //private domain:string = "http://oa.wzmzzj.gov.cn/weboa";
   constructor(public http: Http,
               private globalData: GlobalData,
@@ -57,14 +58,20 @@ export class HttpServiceProvider {
       })
     }));
   }
+  public post1(url: string, body: any = {}): Observable<Response> {
+    url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
+    return this.http.post(url, body);
+  }
 
   public postFormData(url: string, paramMap: any = null): Observable<Response> {
     url = Utils.formatUrl(url.startsWith('http') ? url : this.domain + url);
+    var boundary = "abcd";
     return this.request(url, new RequestOptions({
       method: RequestMethod.Post,
-      search: HttpServiceProvider.buildURLSearchParams(paramMap).toString(),
+      //search: HttpServiceProvider.buildURLSearchParams(paramMap).toString(),
+      body: HttpServiceProvider.buildFormData(paramMap,boundary),
       headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type': 'multipart/form-data; charset=UTF-8; boundary='+boundary
       })
     }));
   }
@@ -129,6 +136,18 @@ export class HttpServiceProvider {
     return params;
   }
 
+  private static buildFormData(paramMap,boundary):FormData{
+    var params = new FormData();
+    for (let key in paramMap) {
+      let val = paramMap[key];
+      if (val instanceof Date) {
+        val = Utils.dateFormat(val, 'yyyy-MM-dd hh:mm:ss');
+      }
+      params.append(key, val);
+    }
+    return params;
+  }
+
   /**
    * 处理请求失败事件
    * @param url
@@ -174,4 +193,5 @@ export class HttpServiceProvider {
       });
     }
   }
+
 }
