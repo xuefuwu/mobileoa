@@ -6,7 +6,7 @@ import { KHDJService } from "./khdjService";
 import _ from 'underscore/underscore';
 import { KHDJ } from "../../modules/khdj";
 @Component({
-    selector: 'khdjModal',
+    selector: 'khdj-Modal',
     templateUrl: 'khdj.html'
 })
 export class KHDJModal {
@@ -14,7 +14,8 @@ export class KHDJModal {
     khjd: string;
     items: any = [];
     jcjg: any = [];
-    khdj:KHDJ;
+    khdj:KHDJ = new KHDJ();
+    public domain: string = "http://oa.wzmzzj.gov.cn/weboa";
     constructor(
         public platform: Platform,
         public params: NavParams,
@@ -25,34 +26,19 @@ export class KHDJModal {
 
         this.csid = this.params.get("csid");
         this.khjd = this.params.get("khjd");
-        this.initKHDJ(this.csid);
         this.initKHX(this.khjd, this.csid);
-        console.log(this.khdj);
     }
-    initKHDJ(csid: string) {
-        this.khdjService.getkhdj(csid).subscribe(res => {
-            
-            _.each(_.pairs(res[0]), function (item, key) {
-                this.khdj.khjg.push({
-                    key: item[0],
-                    value: item[1]
-                });
-            }, this);
-        });
-    }
+
     initKHX(khjd: string, csid: string) {
         console.log(this.jcjg);
-        this.khdjService.getkhtz(khjd).subscribe(res => {
-
-            var jcnr = _.filter(_.pairs(res[0]), function (item) {
-                return item[0].toLowerCase().indexOf("nrx") > -1;
-            });
-            jcnr = _.sortBy(jcnr, function (item) { return parseInt(item[0].substring(3)); });
+        this.khdjService.getkhtz(khjd,csid).subscribe(res => {
+            var jcnr = _.sortBy(_.filter(res,function(item){return item.nrx!=null}), function (item) { return parseInt(item.nrpx); });
             _.each(jcnr, function (item, key) {
                 this.items.push({
-                    key: "KHX" + parseInt(item[0].substring(3)),
-                    text: item[1],
-                    value:function(){return "1";}
+                    key: "NRX" + item.nrpx,
+                    text: item.nrx,
+                    value: item.khx,
+                    imgs:item.imgs
                 });
             }, this);
             

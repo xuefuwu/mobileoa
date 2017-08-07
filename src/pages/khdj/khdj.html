@@ -22,14 +22,20 @@
 </ion-header>
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let item of items; let ind = index">
+    
+      <div class="cond" *ngFor="let item of items">
       <ion-label>{{item.text}}</ion-label>
-      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item.key)" >
+      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item.key)"  *ngIf="item.text!=null">
         <ion-option value=""></ion-option>
-        <ion-option value="0">不合格</ion-option>
-        <ion-option value="1">合格</ion-option>
+        <ion-option value="不合格">不合格</ion-option>
+        <ion-option value="合格">合格</ion-option>
       </ion-select>
-    </ion-item>
+      <div class="imgs" *ngIf="item.imgs">
+        <img width="100%" src="{{domain}}{{item.imgs[0].ATTACHMENTPATH}}"/>
+      </div>
+      </div>
+      
+    
   </ion-list>
         
 </ion-content>

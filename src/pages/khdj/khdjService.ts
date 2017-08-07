@@ -36,12 +36,14 @@ export class KHDJService {
         return this.doget(this.url_khtj,params);
     }
 
-    getkhtz(khjd: string){
-        let params = {f:"getkhtz",khjd: khjd};
+    getkhtz(khjd: string, csid: string){
+        let params = { f: "getkhdj", khjd: khjd, csid: csid};
         return this.doget(this.url_khtj,params);
     }
-    getkhdj(csid:string){
-        let params = {f:"getkhdj",csid:csid};
+
+    getImgs(khid: string ,type: string){
+        let params = {f: "getImg",unid: khid, type:type,moduleid:"khdj"};
         return this.doget(this.url_khtj,params);
     }
+
 }
