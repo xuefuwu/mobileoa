@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { KHDJService } from "./khdjService";
 import _ from 'underscore/underscore';
 import { KHDJ } from "../../modules/khdj";
+import { FileUpdater } from "../../providers/FileUpdater";
 @Component({
     selector: 'khdj-Modal',
     templateUrl: 'khdj.html'
@@ -52,20 +53,7 @@ export class KHDJModal {
 
         this.viewController.dismiss();
     }
-    optionchange(ev: any, ind: string) {
-        let val = ev.value;
-        console.log("optionchange" + ind+";khx1:");
-    }
-    optionSelect(ev: any, ind: string) {
-        let val = ev;
-        console.log("optionSelect" + ind);
-        this.jcjg[ind] = ev;
-    }
-    initSelectedValue(ev: any, ind: string) {
-        let val = ev;
-        console.log("updateSelectedValue" + ind);
-    }
-    isSelected(ev:any){
-        console.log(ev);
+    upload() {
+        this.navCtrl.push(FileUpdater);
     }
 }

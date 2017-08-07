@@ -8,6 +8,9 @@ import { CSList } from "./cslist";
 import { KHDJModal } from "./khdj";
 import { KHDJService } from "./khdjService";
 import { JCSJ } from "./jcsj";
+import { FileUpdater } from "../../providers/FileUpdater";
+import { File, FileEntry } from "@ionic-native/file";
+import { Camera } from '@ionic-native/camera';
 
 //import {SelectPicturePageModule} from "../../shared/select-picture/select-picture.module";
 @NgModule({
@@ -22,7 +25,8 @@ import { JCSJ } from "./jcsj";
     Index_dc,
     CSList,
     KHDJModal,
-    JCSJ
+    JCSJ,
+    FileUpdater
   ],
   entryComponents: [
     MenuKhdj,
@@ -31,10 +35,12 @@ import { JCSJ } from "./jcsj";
     Index_dc,
     CSList,
     KHDJModal,
-    JCSJ
+    JCSJ,
+    FileUpdater
   ],
   providers: [
-    KHDJService
+    KHDJService,
+    File, Camera
   ]
 })
 export class KHDJModule {

@@ -32,6 +32,7 @@
       </ion-select>
       <div class="imgs" *ngIf="item.imgs">
         <img width="100%" src="{{domain}}{{item.imgs[0].ATTACHMENTPATH}}"/>
+        <button (click)="upload()">upload</button>
       </div>
       </div>
       
