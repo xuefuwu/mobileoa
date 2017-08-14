@@ -21,19 +21,23 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    
+  <ion-list>  
       <div class="cond" *ngFor="let item of items">
       <ion-label>{{item.text}}</ion-label>
-      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item.key)"  *ngIf="item.text!=null">
+      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item.id,item.imgs)"  *ngIf="item.text!=null">
         <ion-option value=""></ion-option>
         <ion-option value="不合格">不合格</ion-option>
         <ion-option value="合格">合格</ion-option>
       </ion-select>
+      <uploadimg-Modal #domImgs class="domImg{{item.id}}" [imgs]="item.imgs" [imgsList]="item.value=='不合格'">
+
+      </uploadimg-Modal>
+      <!--
       <div class="imgs" *ngIf="item.imgs">
+        <input type="file" name="files" #uploadimg (change)="fileChanged($event)"/>
         <img width="100%" src="{{domain}}{{item.imgs[0].ATTACHMENTPATH}}"/>
         <button (click)="upload(item.id)">upload</button>
-      </div>
+      </div>-->
       </div>
       
     

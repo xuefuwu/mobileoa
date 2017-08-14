@@ -1,0 +1,5 @@
+<div class="imgs" *ngIf="imgsList">
+    <input type="file" name="files" (change)="fileChanged($event)" />    <button (click)="upload()">upload</button>
+    <img width="100%" src="{{domain}}{{imgs[0].ATTACHMENTPATH}}" />
+
+</div>
