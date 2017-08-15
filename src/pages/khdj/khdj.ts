@@ -18,7 +18,7 @@ export class KHDJModal {
     jcjg: any = [];
     khdj: KHDJ = new KHDJ();
     showupload: any;
-    private domain: string = "http://oa.wzmzzj.gov.cn/weboa";
+    //private domain: string = "http://oa.wzmzzj.gov.cn/weboa";
     @ViewChildren('domImgs', { read: ViewContainerRef }) domImgs: QueryList<ViewContainerRef>;
     constructor(
         public platform: Platform,
@@ -37,30 +37,33 @@ export class KHDJModal {
     ionViewDidLoad(){
         
     }
-    addComponent(id: string,imgList:any) {
+    addComponent(item:any) {
         let com = this.cfr.resolveComponentFactory(UploadImg);
         this.domImgs.forEach(e => {
-            if (e.element.nativeElement.className=="domImg" + id) {
+            if (e.element.nativeElement.className=="domImg" + item.id) {
                 let component = e.createComponent(com);
-                component.instance.imgsList = true;
-                component.instance.Imgs = imgList;
+                if(item.imgs!=null){
+                    component.instance.imgsList = true;
+                    component.instance.Imgs = item.imgs;
+                }
+                component.instance.Item = item;
             }
         })
     }
-    removeComponent(id: string) {
+    removeComponent(item: any) {
         this.domImgs.forEach(e => {
-            if (e.element.nativeElement.className=="domImg" + id) {
+            if (e.element.nativeElement.className == "domImg" + item.id) {
                 let component = e.clear();
             }
         })
     }
 
     initKHX(khjd: string, csid: string) {
-        console.log(this.jcjg);
         this.khdjService.getkhtz(khjd, csid).subscribe(res => {
             var jcnr = _.sortBy(_.filter(res, function (item) { return item.nrx != null }), function (item) { return parseInt(item.nrpx); });
             _.each(jcnr, function (item, key) {
                 this.items.push({
+                    khid:csid,
                     id: item.nrpx,
                     key: "KHX" + item.nrpx,
                     text: item.nrx,
@@ -75,18 +78,16 @@ export class KHDJModal {
         this.viewController.dismiss();
     }
     submit() {
-
         this.viewController.dismiss();
     }
     upload(fileid: string) {
         this.navCtrl.push(FileUpdater, { "fileid": "khximg" + fileid });
     }
-    optionchange(ev, key,imgList) {
+    optionchange(ev, key) {
         if (ev == "不合格") {
-            this.addComponent(key,imgList);
+            this.addComponent(key);
         } else if (ev == "合格") {
             this.removeComponent(key);
         }
-        console.log(ev + key);
     }
 }

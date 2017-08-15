@@ -24,12 +24,12 @@
   <ion-list>  
       <div class="cond" *ngFor="let item of items">
       <ion-label>{{item.text}}</ion-label>
-      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item.id,item.imgs)"  *ngIf="item.text!=null">
+      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item)"  *ngIf="item.text!=null">
         <ion-option value=""></ion-option>
         <ion-option value="不合格">不合格</ion-option>
         <ion-option value="合格">合格</ion-option>
       </ion-select>
-      <uploadimg-Modal #domImgs class="domImg{{item.id}}" [imgs]="item.imgs" [imgsList]="item.value=='不合格'">
+      <uploadimg-Modal #domImgs class="domImg{{item.id}}" [imgs]="item.imgs" [imgsList]="item.value=='不合格'" [item]="item">
 
       </uploadimg-Modal>
       <!--

@@ -15,7 +15,8 @@ import { GUID } from "./GUID";
 
 @Injectable()
 export class HttpServiceProvider {
-  private domain:string = "http://192.168.0.102:8100";
+  private domain:string = "http://192.168.1.143:8100";
+  
   //private domain:string = "http://oa.wzmzzj.gov.cn/weboa";
   constructor(public http: Http,
               private globalData: GlobalData,

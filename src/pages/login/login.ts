@@ -37,7 +37,6 @@ export class LoginPage {
                 this.storageService.write('UserInfo', data.userid);
                 this.loginService.getUserInfo(data.userid).subscribe(userinfo=>{
                     this.storageService.write('user', userinfo[0]);
-                    this.appConfig.setUser(userinfo);
                 })
                 this.navCtrl.setRoot(HomePage);
                 
