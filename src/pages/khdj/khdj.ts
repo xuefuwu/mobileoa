@@ -34,9 +34,7 @@ export class KHDJModal {
         this.khjd = this.params.get("khjd");
         this.initKHX(this.khjd, this.csid);
     }
-    ionViewDidLoad(){
-        
-    }
+
     addComponent(item:any) {
         let com = this.cfr.resolveComponentFactory(UploadImg);
         this.domImgs.forEach(e => {
@@ -90,4 +88,5 @@ export class KHDJModal {
             this.removeComponent(key);
         }
     }
+
 }

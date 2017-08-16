@@ -12,6 +12,7 @@ import { FileUpdater } from "../../providers/FileUpdater";
 import { File, FileEntry } from "@ionic-native/file";
 import { Camera } from '@ionic-native/camera';
 import { UploadImg } from "../../components/uploadimg.component";
+import { FileInput } from "../../components/files.component";
 
 //import {SelectPicturePageModule} from "../../shared/select-picture/select-picture.module";
 @NgModule({
@@ -28,7 +29,8 @@ import { UploadImg } from "../../components/uploadimg.component";
     KHDJModal,
     JCSJ,
     FileUpdater,
-    UploadImg
+    UploadImg,
+    FileInput
   ],
   entryComponents: [
     MenuKhdj,
@@ -39,7 +41,8 @@ import { UploadImg } from "../../components/uploadimg.component";
     KHDJModal,
     JCSJ,
     FileUpdater,
-    UploadImg
+    UploadImg,
+    FileInput
   ],
   providers: [
     KHDJService,

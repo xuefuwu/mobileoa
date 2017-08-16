@@ -1,62 +1,60 @@
-import { Component, Input, ViewChild, ElementRef } from "@angular/core";
+import { Component, Input, ViewChild, ElementRef, ComponentFactoryResolver, ViewChildren, ViewContainerRef, QueryList } from "@angular/core";
 import { StorageService } from '../providers/StorageService';
 import { Owner } from "../pages/login/user";
 import { HttpServiceProvider } from "../providers/http-service";
+import { FileInput } from "./files.component";
 @Component({
     selector: 'uploadimg-Modal',
     templateUrl: 'uploadimg.html',
 })
 export class UploadImg {
-    private user:Owner;
-    private _item:any;
+    private user: Owner;
+    private _item: any;
     private imgs: any[];
+    private _fileInputs:any=[];
     private imgsExist: boolean = false;
     //private domain: string = "http://oa.wzmzzj.gov.cn/weboa";
-    private _imgsList:any;
-    @ViewChild('uploadimg') uploadimg: ElementRef;
+    private _imgsList: any;
+    @ViewChildren('uploadimg') uploadimg: QueryList<ElementRef>;
+    @ViewChildren('fileInputs', { read: ViewContainerRef }) fileInputs: QueryList<ViewContainerRef>;
     constructor(
         private storageService: StorageService,
-        private httpService: HttpServiceProvider
+        private httpService: HttpServiceProvider,
+        private vcr: ViewContainerRef,
+        private cfr: ComponentFactoryResolver
     ) {
         this.user = this.storageService.read<Owner>('user');
     }
     
     upload() {
-        let fi = this.uploadimg.nativeElement;
-        //fi.name="khximg"+this._item.id;
-        if (fi.files) {
-            var input = new FormData();
-            
-            input.append("khximg"+this._item.id, fi.files[0]);
-            input.append("action", "upload");
-            input.append("filepath", '/attachment');
-            input.append("moduleid", "khdj");
-            input.append("docid", this._item.khid);
-            input.append("userid",this.user.ID);
-            this.httpService.post1("/api/upload.jsp", input).subscribe(res => {
-                console.log(res);
-            });
-        }
-    }
-    fileChanged(event) {
-        if (event.target.files && event.target.files[0]) {
-            if (event.target.files[0].size > 512000) {
-                console.log('the file size more than 500kb');
-                //this.fileValid = false;
-            } else {
-                console.log('the file size less than 500kb');
-                //this.fileValid = true;
-            }
-            let reader = new FileReader();
-            //get the selected file from event
-            let file = event.target.files[0];
-            reader.onloadend = function (e) {
-                //Assign the result to variable for setting the src of image element
+        var input = new FormData();
+        this._fileInputs.forEach(e=>{
+            input.append("khximg" + this._item.id, e.instance.File);
+        });
+        input.append("action", "upload");
+        input.append("filepath", '/attachment');
+        input.append("moduleid", "khdj");
+        input.append("docid", this._item.khid);
+        input.append("userid", this.user.ID);
+        this.httpService.post1("/api/upload.jsp", input).subscribe(res => {
+            console.log(res);
+        });
 
-                //var the_file = new Blob([e.target.result ], { type: "image/jpeg" } );
-            }
-            reader.readAsDataURL(file);
-        }
+    }
+    addComponent(item: any) {
+        let com = this.cfr.resolveComponentFactory(FileInput);
+        this.fileInputs.forEach(e=>{
+            let component = e.createComponent(com);
+            this._fileInputs.push(component);
+        });
+        //.createComponent(com);
+        
+    }
+    removeComponent(item: any) {
+        //this.fileInputs.clear();
+    }
+    fileChanged() {
+        this.addComponent(null);
     }
     @Input('imgsList')
     set imgsList(value: boolean) {
@@ -68,19 +66,19 @@ export class UploadImg {
     }
 
     @Input("imgs")
-    set Imgs(value:any){
+    set Imgs(value: any) {
         this.imgs = value;
     }
-    get Imgs(){
+    get Imgs() {
         return this.imgs;
     }
     @Input("item")
-    set Item(value:any){
+    set Item(value: any) {
         this._item = value;
     }
-    get Item(){
+    get Item() {
         return this._item;
     }
 
-    
+
 }

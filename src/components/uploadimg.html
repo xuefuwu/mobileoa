@@ -1,6 +1,8 @@
 <div class="imgs" *ngIf="imgsList">
-    <input type="file" name="khximg{{_item.id}}" #uploadimg (change)="fileChanged($event)" />
-    <button (click)="upload()">upload</button>
+    <div #fileInputs>
+    </div>
+    <button (click)="fileChanged()">追加</button>
+    <button (click)="upload()">上传</button>
     <ion-list>
         <ion-item  *ngFor="let imgObj of imgs">
         <img width="100%" src="{{domain}}{{imgObj.ATTACHMENTPATH}}" />
