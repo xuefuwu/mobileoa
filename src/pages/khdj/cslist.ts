@@ -117,7 +117,7 @@ export class CSList {
     }
 
     presentModal(item) {
-        let modal = this.modalCtrl.create(KHDJModal,{csid:item.UNID,khjd:this.khjd});
+        let modal = this.modalCtrl.create(KHDJModal,{csid:item.UNID,khjd:this.khjd,khcs:item});
         modal.present();
     }
 }

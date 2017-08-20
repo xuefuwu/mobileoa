@@ -11,17 +11,19 @@ import {Utils} from "./Utils";
 import {GlobalData} from "./GlobalData";
 import {NativeService} from "./NativeService";
 import {APP_SERVE_URL, REQUEST_TIMEOUT} from "./Constants";
-import { GUID } from "./GUID";
+import { AppConfig } from "../app/app.config";
 
 @Injectable()
 export class HttpServiceProvider {
-  private domain:string = "http://192.168.1.143:8100";
+  private domain:string;
   
   //private domain:string = "http://oa.wzmzzj.gov.cn/weboa";
   constructor(public http: Http,
               private globalData: GlobalData,
-              private nativeService: NativeService
+              private nativeService: NativeService,
+              private appConfig:AppConfig
             ) {
+              this.domain=appConfig.Domain;
   }
 
   public request(url: string, options: RequestOptionsArgs): Observable<Response> {

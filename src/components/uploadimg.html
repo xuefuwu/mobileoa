@@ -4,8 +4,8 @@
     <button (click)="fileChanged()">追加</button>
     <button (click)="upload()">上传</button>
     <ion-list>
-        <ion-item  *ngFor="let imgObj of imgs">
-        <img width="100%" src="{{domain}}{{imgObj.ATTACHMENTPATH}}" />
-        </ion-item>
+        <li  *ngFor="let imgObj of imgs" id="imgitem{{imgObj.ATTACHMENTID}}" #uploadimg>
+        <img width="100%" src="{{domain}}{{imgObj.ATTACHMENTPATH}}" (click)="presentActionSheet($event)" id={{imgObj.ATTACHMENTID}} />
+        </li>
     </ion-list>
 </div>

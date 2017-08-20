@@ -5,11 +5,11 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://192.168.1.137/weboa/api"
+      "proxyUrl": "http://www.fbvinc.com:8137/weboa/api"
     },
     {
       "path": "/attachment",
-      "proxyUrl":"http://192.168.1.137/weboa/attachment"
+      "proxyUrl":"http://www.fbvinc.com:8137/weboa/attachment"
     }
   ]
 }

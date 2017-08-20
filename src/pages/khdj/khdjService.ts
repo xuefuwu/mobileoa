@@ -14,6 +14,9 @@ export class KHDJService {
     doget(url: string,params: any) {
         return this.httpService.get(url, params).map((res: Response) => res.json());
     }
+    dopost(url: string, params: any){
+        return this.httpService.post(url,params).map((res:Response) =>res.json());
+    }
     getKHSJ() {
         var params = { f: "getData" };
         return this.doget(this.url_jcsjgl,params);
@@ -43,6 +46,15 @@ export class KHDJService {
 
     getImgs(khid: string ,type: string){
         let params = {f: "getImg",unid: khid, type:type,moduleid:"khdj"};
+        return this.doget(this.url_khtj,params);
+    }
+    removeImgs(attachid: string ){
+        let params = {f: "removeImg",unid: attachid};
+        return this.doget(this.url_khtj,params);
+    }
+
+    postkhdj(body:any){
+        let params = {f:"postkhdj",body:body};
         return this.doget(this.url_khtj,params);
     }
 
