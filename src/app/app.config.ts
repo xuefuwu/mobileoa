@@ -4,6 +4,7 @@ export class AppConfig {
     private domain:string;
     constructor() {
         this.domain = "http://192.168.0.102:8100";
+        
     }
     get Domain(){
         return this.domain;
