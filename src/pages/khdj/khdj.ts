@@ -21,7 +21,6 @@ export class KHDJModal {
     khdj: KHDJ = new KHDJ();
     showupload: any;
     khxc: any = [];
-    //private domain: string = "http://oa.wzmzzj.gov.cn/weboa";
     @ViewChildren('domImgs', { read: ViewContainerRef }) domImgs: QueryList<ViewContainerRef>;
     constructor(
         public platform: Platform,
@@ -136,6 +135,7 @@ export class KHDJModal {
                 return e.key == item.key;
             });
             changeitem.jcdf = changeitem.jcpf;
+            changeitem.correction.enable = false;
         }
     }
     correct(ev, item) {

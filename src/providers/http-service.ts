@@ -23,7 +23,7 @@ export class HttpServiceProvider {
               private nativeService: NativeService,
               private appConfig:AppConfig
             ) {
-              this.domain=appConfig.Domain;
+              this.domain=appConfig.API_URL;
   }
 
   public request(url: string, options: RequestOptionsArgs): Observable<Response> {

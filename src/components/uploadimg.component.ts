@@ -6,6 +6,8 @@ import { HttpServiceProvider } from "../providers/http-service";
 import { FileInput } from "./files.component";
 import _ from 'underscore/underscore';
 import { KHDJService } from "../pages/khdj/khdjService";
+import { AppConfig } from "../app/app.config";
+
 
 @Component({
     selector: 'uploadimg-Modal',
@@ -18,9 +20,11 @@ export class UploadImg {
     private _fileInputs:any=[];
     private imgsExist: boolean = false;
     private _imgsList: any;
+    private domain:string;
     @ViewChildren('uploadimg') uploadimg: QueryList<ElementRef>;
     @ViewChildren('fileInputs', { read: ViewContainerRef }) fileInputs: QueryList<ViewContainerRef>;
     constructor(
+        private appConfig:AppConfig,
         private storageService: StorageService,
         private httpService: HttpServiceProvider,
         private khdjService: KHDJService,
@@ -29,6 +33,7 @@ export class UploadImg {
         public actionSheetCtrl: ActionSheetController
     ) {
         this.user = this.storageService.read<Owner>('user');
+        this.domain=appConfig.API_URL;
     }
     presentActionSheet(img:any) {
         let actionSheet = this.actionSheetCtrl.create({
