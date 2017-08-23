@@ -63,7 +63,7 @@ export class KHDJModal {
         this.khdjService.getkhtz(khjd, csid).subscribe(res => {
             var jcnr = _.sortBy(_.filter(res, function (item) { return item.nrx != null }), function (item) { return parseInt(item.nrpx); });
             _.each(jcnr, function (item, key) {
-                var unqualifieditem = _.find(res, function (e) { return _.has(e, "xzgx") }).xzgx.unqualified
+                var unqualifieditem = _.has(_.find(res, function (e) { return _.has(e, "xzgx") }).xzgx,"unqualified").unqualified;
                 this.items.push({
                     khid: csid,
                     id: item.nrpx,
@@ -74,7 +74,7 @@ export class KHDJModal {
                     imgs: item.imgs,
                     jcdf: item.khx == "合格" ? item.nrxval : 0,
                     jcpf: item.nrxval,
-                    correction: { enable: item.khx != "合格", completed: _.find(unqualifieditem, function (e) { return e.id == item.nrpx }) == null ? _.find(unqualifieditem, function (e) { return e.id == item.nrpx }) == null : _.find(unqualifieditem, function (e) { return e.id == item.nrpx }).status }
+                    correction: { enable: item.khx == "不合格", completed: _.find(unqualifieditem, function (e) { return e.id == item.nrpx }) == null ? _.find(unqualifieditem, function (e) { return e.id == item.nrpx }) == null : _.find(unqualifieditem, function (e) { return e.id == item.nrpx }).status }
                 });
             }, this);
             _.each(_.filter(res, function (e) { return _.has(e, "imgs") && !_.has(e, "nrpx") }), function (item, key) {
@@ -85,14 +85,14 @@ export class KHDJModal {
                 id: 'jcr',
                 key: 'jcr',
                 text: '检查人',
-                value: _.find(res, function (e) { return _.has(e, "jcr") }).jcr
+                value: _.find(res, function (e) { return _.has(e, "jcr") }).jcr == "null" ? "" : _.find(res, function (e) { return _.has(e, "jcr") }).jcr
             });
             this.jcjg.push({
                 khid: csid,
                 id: 'ysr',
                 key: 'ysr',
                 text: '审核人',
-                value: _.find(res, function (e) { return _.has(e, "ysr") }).ysr
+                value: _.find(res, function (e) { return _.has(e, "ysr") }).ysr == "null" ? "" : _.find(res, function (e) { return _.has(e, "ysr") }).ysr
             });
             this.jcjg.push({
                 khid: csid,
