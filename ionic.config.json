@@ -9,7 +9,10 @@
     },
     {
       "path": "/attachment",
-      "proxyUrl":"http://oa.wzmzzj.gov.cn/weboa/attachment"
+      "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/attachment"
     }
-  ]
+  ],
+  "integrations": {
+    "cordova": {}
+  }
 }

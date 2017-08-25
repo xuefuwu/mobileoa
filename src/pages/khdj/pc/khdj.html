@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{khcs.CSMC}}</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">取消</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="submit()" right>
+        <span ion-text color="primary" showWhen="ios">保存</span>
+        <ion-icon name="md-checkmark-circle-outline" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-label>现场照片</ion-label>
+  <uploadimg-Modal #domImgs [imgs]="currentItem.imgs" [item]="currentItem" [imgsList]="true">
+  </uploadimg-Modal>
+  <ion-list>
+    <div class="cond" *ngFor="let item of items">
+      <ion-label>{{item.text}}</ion-label>
+      <ion-select [(ngModel)]="item.value" (ionChange)="optionchange($event,item)" *ngIf="item.text!=null">
+        <ion-option value=""></ion-option>
+        <ion-option value="不合格">不合格</ion-option>
+        <ion-option value="合格">合格</ion-option>
+      </ion-select>
+      <input [(ngModel)]="item.jcdf" value="item.jcdf" name="item.key" />
+
+      <ion-item *ngIf="item.correction.enable">
+        <ion-label>是否已整改</ion-label>
+        <ion-toggle [(ngModel)]="item.correction.completed" (ionChange)="correct($event,item)"></ion-toggle>
+      </ion-item>
+
+      <uploadimg-Modal #domImgs class="domImg{{item.id}}" [imgs]="item.imgs" [imgsList]="item.value=='不合格'" [item]="item">
+      </uploadimg-Modal>
+    </div>
+  </ion-list>
+  <ion-list>
+    <div class="cond" *ngFor="let item of jcjg">
+      <ion-label>{{item.text}}</ion-label>
+      <ion-input [(ngModel)]="item.value"></ion-input>
+    </div>
+  </ion-list>
+
+</ion-content>

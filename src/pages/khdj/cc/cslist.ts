@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
-import { KHDJService } from "./khdjService";
-import { HttpServiceProvider } from "../../providers/http-service";
-import { NativeService } from "../../providers/NativeService";
-import { csObject } from '../../modules/csgl'
+import { KHDJService } from "../khdjService";
+import { HttpServiceProvider } from "../../../providers/http-service";
+import { NativeService } from "../../../providers/NativeService";
+import { csObject } from '../../../modules/csgl'
 import { KHDJModal } from "./khdj";
 import _ from 'underscore/underscore';
 @Component({

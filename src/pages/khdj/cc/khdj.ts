@@ -2,11 +2,11 @@ import { ModalController, Platform, NavParams, NavController, ViewController } f
 import { Component, ComponentFactoryResolver, ViewChildren, ViewContainerRef, QueryList } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
-import { KHDJService } from "./khdjService";
+import { KHDJService } from "../khdjService";
 import _ from 'underscore/underscore';
-import { KHDJ } from "../../modules/khdj";
-import { FileUpdater } from "../../providers/FileUpdater";
-import { UploadImg } from "../../components/uploadimg.component";
+import { KHDJ } from "../../../modules/khdj";
+import { FileUpdater } from "../../../providers/FileUpdater";
+import { UploadImg } from "../../../components/uploadimg.component";
 @Component({
     selector: 'khdj-Modal',
     templateUrl: 'khdj.html'

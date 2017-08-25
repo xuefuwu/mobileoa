@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController,NavParams } from 'ionic-angular';
-import { Index_pc } from "./indexpc";
-import { Index_dc } from "./indexdc";
-import { Index_cc } from "./indexcc";
+import { Index_pc } from "./pc/indexpc";
+import { Index_dc } from "./dc/indexdc";
+import { Index_cc } from "./cc/indexcc";
 
 @Component({
     selector: 'menu-khdj',
