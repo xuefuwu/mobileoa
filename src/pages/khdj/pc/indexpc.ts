@@ -2,9 +2,9 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController,Nav,NavParams } from 'ionic-angular';
 import  echarts from 'echarts';
 import { CSList } from "./cslist";
-import { KHDJService } from "./khdjService";
-import { StorageService } from '../../providers/StorageService';
-import { Owner } from "../login/user";
+import { KHDJService } from "../khdjService";
+import { StorageService } from '../../../providers/StorageService';
+import { Owner } from "../../login/user";
 
 @Component({
 	selector: 'index-zjpc',

@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { MenuKhdj } from "./MenuKHDJ";
-import { Index_pc } from "./indexpc";
-import { Index_dc } from "./indexdc";
-import { Index_cc } from "./indexcc";
-import { CSList } from "./cslist";
-import { KHDJModal } from "./khdj";
+import { Index_pc } from "./pc/indexpc";
+import { Index_dc } from "./dc/indexdc";
+import { Index_cc } from "./cc/indexcc";
+import { CSList } from "./pc/cslist";
+import { KHDJModal } from "./pc/khdj";
 import { KHDJService } from "./khdjService";
 import { JCSJ } from "./jcsj";
 import { FileUpdater } from "../../providers/FileUpdater";
-import { File, FileEntry } from "@ionic-native/file";
-import { Camera } from '@ionic-native/camera';
 import { UploadImg } from "../../components/uploadimg.component";
 import { FileInput } from "../../components/files.component";
 
@@ -46,7 +44,6 @@ import { FileInput } from "../../components/files.component";
   ],
   providers: [
     KHDJService,
-    File, Camera
   ]
 })
 export class KHDJModule {
