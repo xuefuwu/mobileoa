@@ -15,7 +15,7 @@ export class KHDJService {
         return this.httpService.get(url, params).map((res: Response) => res.json());
     }
     dopost(url: string, params: any){
-        return this.httpService.post(url,params).map((res:Response) =>res.json());
+        return this.httpService.post1(url,params).map((res:Response) =>res.json());
     }
     getKHSJ() {
         var params = { f: "getData" };
@@ -54,8 +54,8 @@ export class KHDJService {
     }
 
     postkhdj(body:any){
-        let params = {f:"postkhdj",body:body};
-        return this.doget(this.url_khtj,params);
+        let params = {f:"postkhdj",khjg:body};
+        return this.dopost(this.url_khtj,params);
     }
 
 }

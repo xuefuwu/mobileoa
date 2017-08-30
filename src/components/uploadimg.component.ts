@@ -33,7 +33,7 @@ export class UploadImg {
         public actionSheetCtrl: ActionSheetController
     ) {
         this.user = this.storageService.read<Owner>('user');
-        this.domain=appConfig.API_URL;
+        this.domain=appConfig.Domain;
     }
     presentActionSheet(img:any) {
         let actionSheet = this.actionSheetCtrl.create({

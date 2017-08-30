@@ -1,18 +1,17 @@
 {
-  "name": "PupPics",
-  "app_id": "",
-  "type": "ionic-angular",
-  "proxies": [
-    {
-      "path": "/api",
-      "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/api"
-    },
-    {
-      "path": "/attachment",
-      "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/attachment"
+    "name": "PupPics",
+    "app_id": "",
+    "type": "ionic-angular",
+    "proxies": [{
+            "path": "/api",
+            "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/api"
+        },
+        {
+            "path": "/attachment",
+            "proxyUrl": "http://oa.wzmzzj.gov.cn/weboa/attachment"
+        }
+    ],
+    "integrations": {
+        "cordova": {}
     }
-  ],
-  "integrations": {
-    "cordova": {}
-  }
 }
