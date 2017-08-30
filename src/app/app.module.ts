@@ -7,11 +7,11 @@ import { AppConfig } from "./app.config";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpServiceProvider } from '../providers/http-service';
-import {HttpInterceptHandle} from "../providers/HttpInterceptHandle";
-import {NativeService} from "../providers/NativeService";
+import { HttpInterceptHandle } from "../providers/HttpInterceptHandle";
+import { NativeService } from "../providers/NativeService";
 import { StorageService } from '../providers/StorageService';
-import {GlobalData} from "../providers/GlobalData";
-import {TestModule} from "../pages/test/test.module";
+import { GlobalData } from "../providers/GlobalData";
+import { TestModule } from "../pages/test/test.module";
 import { LoginModule } from '../pages/login/login.module';
 import { HomeModule } from '../pages/home/home.module';
 import { KHDJModule } from '../pages/khdj/khdj.module';
@@ -21,7 +21,7 @@ import { SRZTModule } from "../pages/srzt/srzt.module";
 @NgModule({
   declarations: [
     MyApp,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -31,23 +31,23 @@ import { SRZTModule } from "../pages/srzt/srzt.module";
     LoginModule,
     KHDJModule,
     AQJCModule,
-  
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    
+
   ],
   providers: [
     HttpInterceptHandle,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeService,
     StorageService,
     HttpServiceProvider,
     GlobalData,
-AppConfig
+    AppConfig
   ]
 })
-export class AppModule {}
+export class AppModule { }
