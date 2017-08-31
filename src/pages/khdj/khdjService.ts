@@ -54,8 +54,11 @@ export class KHDJService {
     }
 
     postkhdj(body:any){
-        let params = {f:"postkhdj",khjg:body};
-        return this.dopost(this.url_khtj,params);
+
+        let params = new FormData();
+        params.append("action", "postkhdj");
+        params.append("khjg",body);
+        return this.dopost("/api/khtj/formpost.jsp",params);
     }
 
 }
