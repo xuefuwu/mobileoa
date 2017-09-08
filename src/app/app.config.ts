@@ -4,9 +4,9 @@ export class AppConfig {
     private domain:string;
     private api:string;
     constructor() {
-        //this.domain = "http://localhost:8100";
+        this.domain = "http://localhost:8100";//本地调试
         //this.domain = "http://oa.wzmzzj.gov.cn/www/";
-        this.domain = "http://oa.wzmzzj.gov.cn/weboa";
+       // this.domain = "http://oa.wzmzzj.gov.cn/weboa";//服务端部署
     }
     get Domain(){
         return this.domain;

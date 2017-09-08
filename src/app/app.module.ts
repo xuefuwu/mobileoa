@@ -31,7 +31,7 @@ import { SRZTModule } from "../pages/srzt/srzt.module";
     LoginModule,
     KHDJModule,
     AQJCModule,
-
+    SRZTModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

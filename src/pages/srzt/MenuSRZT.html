@@ -1,0 +1,32 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>三人驻堂</ion-title>
+    </ion-navbar>
+    <ion-toolbar>
+        <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <div *ngFor="let group of groups">
+            <ion-item light class="item-stable" (click)="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                <ion-icon *ngIf="!isGroupShown(group)" (click)="toggleGroup(group)" name="play" ios="ios-arrow-dropright" md="md-arrow-dropright"></ion-icon>
+                <ion-icon *ngIf="isGroupShown(group)" (click)="toggleGroup(group)" name="square" ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+                {{group.name}}
+            </ion-item>
+            <ion-list *ngIf="isGroupShown(group)">
+                <ion-item class="item-accordion" *ngFor="let item of group.items" (click)="presentModal(item)">
+                    {{item.CSMC}}
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
